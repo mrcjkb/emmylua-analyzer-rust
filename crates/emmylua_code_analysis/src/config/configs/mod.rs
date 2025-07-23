@@ -17,7 +17,7 @@ mod workspace;
 pub use code_action::EmmyrcCodeAction;
 pub use codelen::EmmyrcCodeLen;
 pub use completion::{EmmyrcCompletion, EmmyrcFilenameConvention};
-pub use diagnostics::EmmyrcDiagnostic;
+pub use diagnostics::{EmmyrcDiagnostic, DiagnosticLibraryFilesSetting};
 pub use document_color::EmmyrcDocumentColor;
 pub use hover::EmmyrcHover;
 pub use inlayhint::EmmyrcInlayHint;

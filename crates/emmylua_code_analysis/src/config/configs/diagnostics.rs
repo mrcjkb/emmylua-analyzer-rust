@@ -22,6 +22,9 @@ pub struct EmmyrcDiagnostic {
     /// A list of regular expressions for global variables.
     #[serde(default)]
     pub globals_regex: Vec<String>,
+    /// A setting specifying when to enable diagnostics for files listed in `workspace.libraries`
+    #[serde(default)]
+    pub library_files: DiagnosticLibraryFilesSetting,
     /// A map of diagnostic codes to their severity settings.
     #[serde(default)]
     pub severity: HashMap<DiagnosticCode, DiagnosticSeveritySetting>,
@@ -39,11 +42,23 @@ impl Default for EmmyrcDiagnostic {
             enable: default_true(),
             globals: Vec::new(),
             globals_regex: Vec::new(),
+            library_files: DiagnosticLibraryFilesSetting::default(),
             severity: HashMap::new(),
             enables: Vec::new(),
             diagnostic_interval: Some(500),
         }
     }
+}
+
+#[derive(Serialize, Deserialize, Debug, JsonSchema, Default, Clone)]
+pub enum DiagnosticLibraryFilesSetting {
+    /// Enable diagnostics for all library files
+    Enable,
+    /// Enable diagnostics for opened library files
+    Opened,
+    /// Disable diagnostics for opened library files
+    #[default]
+    Disable,
 }
 
 fn default_true() -> bool {

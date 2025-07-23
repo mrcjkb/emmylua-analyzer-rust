@@ -1,8 +1,8 @@
 use std::{path::PathBuf, str::FromStr, sync::Arc};
 
 use emmylua_code_analysis::{
-    load_configs, load_workspace_files, update_code_style, DbIndex, EmmyLuaAnalysis, Emmyrc,
-    FileId, LuaFileInfo,
+    load_configs, load_workspace_files, update_code_style, DbIndex, DiagnosticLibraryFilesSetting,
+    EmmyLuaAnalysis, Emmyrc, FileId, LuaFileInfo,
 };
 
 fn root_from_configs(config_paths: &Vec<PathBuf>, fallback: &PathBuf) -> PathBuf {
@@ -59,11 +59,20 @@ pub fn load_workspace(
     );
     emmyrc.pre_process_emmyrc(&config_root);
 
-    for lib in &emmyrc.workspace.library {
-        workspace_folders.push(PathBuf::from_str(lib).unwrap());
-    }
-
     let mut analysis = EmmyLuaAnalysis::new();
+
+    if matches!(
+        emmyrc.diagnostics.library_files,
+        DiagnosticLibraryFilesSetting::Enable
+    ) {
+        for lib in &emmyrc.workspace.library {
+            workspace_folders.push(PathBuf::from_str(lib).unwrap());
+        }
+    } else {
+        for lib in &emmyrc.workspace.library {
+            analysis.add_library_workspace(PathBuf::from_str(lib).unwrap());
+        }
+    }
 
     for path in &workspace_folders {
         analysis.add_main_workspace(path.clone());

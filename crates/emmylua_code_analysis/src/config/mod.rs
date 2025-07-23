@@ -8,13 +8,14 @@ use std::{
 };
 
 pub use config_loader::load_configs;
+pub use configs::DiagnosticLibraryFilesSetting;
 pub use configs::EmmyrcFilenameConvention;
 pub use configs::EmmyrcLuaVersion;
 use configs::{EmmyrcCodeAction, EmmyrcDocumentColor};
 use configs::{
     EmmyrcCodeLen, EmmyrcCompletion, EmmyrcDiagnostic, EmmyrcHover, EmmyrcInlayHint,
     EmmyrcInlineValues, EmmyrcReference, EmmyrcResource, EmmyrcRuntime, EmmyrcSemanticToken,
-    EmmyrcSignature, EmmyrcStrict, EmmyrcWorkspace,
+    EmmyrcSignature, EmmyrcStrict, EmmyrcWorkspace, 
 };
 use emmylua_parser::{LuaLanguageLevel, ParserConfig, SpecialFunction};
 use regex::Regex;

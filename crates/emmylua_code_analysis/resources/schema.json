@@ -387,6 +387,25 @@
         }
       ]
     },
+    "DiagnosticLibraryFilesSetting": {
+      "oneOf": [
+        {
+          "description": "Enable diagnostics for all library files",
+          "type": "string",
+          "const": "Enable"
+        },
+        {
+          "description": "Enable diagnostics for open library files (LSP)",
+          "type": "string",
+          "const": "Open"
+        },
+        {
+          "description": "Disable diagnostics for library files",
+          "type": "string",
+          "const": "Disable"
+        }
+      ]
+    },
     "DiagnosticSeveritySetting": {
       "oneOf": [
         {
